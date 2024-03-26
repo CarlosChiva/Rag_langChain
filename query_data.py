@@ -6,6 +6,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 from dotenv import loadenv
 import os
+#from langchain_community.llms import Ollama
 env=loadenv()
 key= env.load("Key")
 CHROMA_PATH = "chroma"
@@ -42,7 +43,8 @@ def main():
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
     print(prompt)
-
+#llm = Ollama(model="mistral")
+#response_text= llm.invoke(prompt)
     model = ChatOpenAI(temperature=0, openai_api_key=key)
     response_text = model.predict(prompt)
 
