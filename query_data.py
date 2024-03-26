@@ -4,7 +4,10 @@ from langchain.vectorstores.chroma import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-
+from dotenv import loadenv
+import os
+env=loadenv()
+key= env.load("Key")
 CHROMA_PATH = "chroma"
 
 PROMPT_TEMPLATE = """
@@ -40,7 +43,7 @@ def main():
     prompt = prompt_template.format(context=context_text, question=query_text)
     print(prompt)
 
-    model = ChatOpenAI()
+    model = ChatOpenAI(temperature=0, openai_api_key=key)
     response_text = model.predict(prompt)
 
     sources = [doc.metadata.get("source", None) for doc, _score in results]
